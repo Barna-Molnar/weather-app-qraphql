@@ -1,8 +1,6 @@
 import React from 'react';
 import { useLazyQuery } from '@apollo/client';
 
-const stg = {};
-
 function Home() {
   return (
     <div className="home">
