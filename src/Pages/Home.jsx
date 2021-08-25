@@ -13,12 +13,20 @@ function Home() {
   );
 
   if (error) return <h1>Error found</h1>;
+  if (data === null) console.log(data);
   if (data) {
     console.log(data);
   }
 
   return (
-    <div className="home">
+    <form
+      className="home"
+      onSubmit={(event) => {
+        event.preventDefault();
+        getWeather();
+        inputRef.current.value = '';
+      }}
+    >
       <h1>Search for the weather</h1>
       <input
         ref={inputRef}
@@ -37,16 +45,23 @@ function Home() {
       >
         search
       </button>
-      {data && !loading && (
+      {data?.getCityByName && !loading && (
         <>
           <div>
-            <h1>{data.getCityByName.name}</h1>
-            <h1>{data.getCityByName.weather.temperature.actual}</h1>
-            <h1>{data.getCityByName.weather.summary.description}</h1>
+            <h1>Name of the city: {data.getCityByName?.name}</h1>
+            <h1>
+              Actual temperature:
+              {data.getCityByName?.weather.temperature.actual}
+            </h1>
+            <h1>
+              Weather descrip.:{' '}
+              {data.getCityByName?.weather.summary.description}
+            </h1>
+            <h1>Wind speed: {data.getCityByName?.weather.wind.speed}</h1>
           </div>
         </>
       )}
-    </div>
+    </form>
   );
 }
 
